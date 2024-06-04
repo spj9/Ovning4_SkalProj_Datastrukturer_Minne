@@ -27,9 +27,8 @@ Vad skiljer då det som lagras i stacken och heapen? För att förstå det ska v
 |<p>- *bool* </p><p>- *byte*   </p><p>- *char* </p><p>- *decimal* </p><p>- *double* </p>|<p>- *enum* </p><p>- *float* </p><p>- *int* </p><p>- *long* </p><p>- *sbyte* </p>|<p>- *short* </p><p>- *struct* </p><p>- *uint* </p><p>- *ulong* </p><p>- *ushort* </p>|
 | - | - | - |
 
-1/7 
 
-*Reference Types* är typer som ärver från 
+*Reference Types* är typer som ärver från System.Object (eller är System.Object.object) 
 
 - *class* 
 - *interface* 
@@ -37,9 +36,6 @@ Vad skiljer då det som lagras i stacken och heapen? För att förstå det ska v
 - *delegate* 
 - *string* 
 
-*System.Object* (eller är *System.Object.object*) 
-
-2/7 
 
 Nästa typ är pointers. Dessa är inget som vi behöver tänka på utan behandlas av ***Common Language Runtime (CLR)**.* En *pointer* skiljer sig från *reference types*, i det avseendet att när något är av en *reference type*, så kommer vi åt det via en *pointer*. En *pointer* är alltså något som tar plats i minnet och pekar på antingen en annan plats i minnet eller *null*. *Instructions* kommer inte gås igenom i denna övning, men ni ska veta att det finns.
 
