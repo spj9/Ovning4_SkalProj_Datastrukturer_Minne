@@ -4,6 +4,11 @@ namespace SkalProj_Datastrukturer_Minne
 {
     class Program
     {
+        private static bool ChangeCtrl(int value1, int value2, out int change)
+        {
+            change = value1 - value2;
+            return change != 0;
+        }
         /// <summary>
         /// The main method, vill handle the menues for the program
         /// </summary>
@@ -58,7 +63,7 @@ namespace SkalProj_Datastrukturer_Minne
         }
 
         /// <summary>
-        /// Examines the datastructure List
+        /// Examines the datastructure List 
         /// </summary>
         static void ExamineList()
         {
@@ -72,12 +77,81 @@ namespace SkalProj_Datastrukturer_Minne
              * Below you can see some inspirational code to begin working.
             */
 
-            //List<string> theList = new List<string>();
-            //string input = Console.ReadLine();
-            //char nav = input[0];
-            //string value = input.substring(1);
+            var theList = new List<string>();
 
-            //switch(nav){...}
+            Console.Clear();
+
+            Console.WriteLine("\nList initalized");
+            Console.WriteLine($"Capacity: {theList.Capacity} Count: {theList.Count}\n");
+
+            var running = true;
+            while (running)
+            {
+                Console.WriteLine("\nPlease enter some valid input.");
+                var input = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("Invalid input!");
+                    continue;
+                }
+
+                var capacityBefore = theList.Capacity;
+                var countBefore = theList.Count;
+
+                char op = input[0];
+                string value = input.Substring(1);
+
+                switch (op)
+                {
+                    case '+':
+                        theList.Add(value);
+                        break;
+                    case '-':
+                        theList.Remove(value);
+                        break;
+                    case '0':
+                    case 'e':
+                        running = false;
+                        break;
+                    default:
+                        Console.WriteLine("Please use only \"+\" or \"-\" as an operator");
+                        Console.WriteLine("To return to main menu, please enter \"0\"");
+                        continue;
+                }
+
+                /*
+                 * 2) Once the last element in the array has been written to, the capacity of the list increases.
+                 * 3) Its growth is exponential.
+                 * 4) Its expensive to resize the list, because it has to create a new array and copy the elements over for each size increase.
+                 * 5) No, the list will keep its size when elements are removed.
+                 * 6) When you know what size of an array you need beforehand, it is preferable to use a specific sized array to avoid reallocation and memory overhead.
+                */
+
+                if (!running) break;
+
+                var capacityAfter = theList.Capacity;
+                var countAfter = theList.Count;
+
+                Console.Write("\n");
+
+                if (ChangeCtrl(capacityBefore, capacityAfter, out int capacityChange))
+                    Console.WriteLine($"Capacity {(capacityChange > 0 ? "decreased" : "increased")} by {(capacityChange < 0 ? -1 : 1) * capacityChange}");
+                else
+                    Console.WriteLine("Capacity did not change");
+
+                if (ChangeCtrl(countBefore, countAfter, out int countChange))
+                    Console.WriteLine($"Count {(countChange > 0 ? "decreased" : "increased")} by {(countChange < 0 ? -1 : 1) * countChange}");
+                else
+                    Console.WriteLine("Count didn't change");
+
+            }
+
+            Console.WriteLine("\n\nFinal list size");
+            Console.WriteLine($"Capacity: {theList.Capacity} Count: {theList.Count}");
+
+            Console.WriteLine("\nPress any key to return to main menu...");
+            Console.ReadKey();
         }
 
         /// <summary>
