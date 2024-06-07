@@ -77,12 +77,12 @@ namespace SkalProj_Datastrukturer_Minne
              * Below you can see some inspirational code to begin working.
             */
 
-            var theList = new List<string>();
+            var aList = new List<string>();
 
             Console.Clear();
 
             Console.WriteLine("\nList initalized");
-            Console.WriteLine($"Capacity: {theList.Capacity} Count: {theList.Count}\n");
+            Console.WriteLine($"Capacity: {aList.Capacity} Count: {aList.Count}\n");
 
             var running = true;
             while (running)
@@ -96,8 +96,8 @@ namespace SkalProj_Datastrukturer_Minne
                     continue;
                 }
 
-                var capacityBefore = theList.Capacity;
-                var countBefore = theList.Count;
+                var capacityBefore = aList.Capacity;
+                var countBefore = aList.Count;
 
                 char op = input[0];
                 string value = input.Substring(1);
@@ -105,10 +105,10 @@ namespace SkalProj_Datastrukturer_Minne
                 switch (op)
                 {
                     case '+':
-                        theList.Add(value);
+                        aList.Add(value);
                         break;
                     case '-':
-                        theList.Remove(value);
+                        aList.Remove(value);
                         break;
                     case '0':
                     case 'e':
@@ -123,15 +123,15 @@ namespace SkalProj_Datastrukturer_Minne
                 /*
                  * 2) Once the last element in the array has been written to, the capacity of the list increases.
                  * 3) Its growth is exponential.
-                 * 4) Its expensive to resize the list, because it has to create a new array and copy the elements over for each size increase.
+                 * 4) Its inefficient to resize the list, because it has to create a new array and copy the elements over for each size increase.
                  * 5) No, the list will keep its size when elements are removed.
                  * 6) When you know what size of an array you need beforehand, it is preferable to use a specific sized array to avoid reallocation and memory overhead.
                 */
 
                 if (!running) break;
 
-                var capacityAfter = theList.Capacity;
-                var countAfter = theList.Count;
+                var capacityAfter = aList.Capacity;
+                var countAfter = aList.Count;
 
                 Console.Write("\n");
 
@@ -148,7 +148,7 @@ namespace SkalProj_Datastrukturer_Minne
             }
 
             Console.WriteLine("\n\nFinal list size");
-            Console.WriteLine($"Capacity: {theList.Capacity} Count: {theList.Count}");
+            Console.WriteLine($"Capacity: {aList.Capacity} Count: {aList.Count}");
 
             Console.WriteLine("\nPress any key to return to main menu...");
             Console.ReadKey();
@@ -164,7 +164,70 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to enqueue items or dequeue items
              * Make sure to look at the queue after Enqueueing and Dequeueing to see how it behaves
             */
+            var aQueue = new Queue<string>();
+
+            Console.Clear();
+
+            Console.WriteLine("\nQueue initalized");
+
+            var running = true;
+            while (running)
+            {
+                Console.WriteLine("\nPlease enter some valid input.");
+                var input = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.WriteLine("Invalid input!");
+                    continue;
+                }
+
+                char oi = input[0];
+                string value = input.Substring(1);
+
+                switch (oi)
+                {
+                    case '+':
+                        aQueue.Enqueue(value);
+                        Console.WriteLine($"Customer {value} has been added to the line");
+                        break;
+                    case '-':
+                        Console.WriteLine($"Customer {aQueue.Dequeue()} has been handled");
+                        break;
+                    case '0':
+                    case 'e':
+                        running = false;
+                        break;
+                    default:
+                        Console.WriteLine("Please use only \"+\" or \"-\" as an operator");
+                        Console.WriteLine("If you want to return to the main menu, please enter \"0\"");
+                        continue;
+                }
+
+                if (!running) break;
+
+                Console.WriteLine($"Queue size: {aQueue.Count}");
+
+                if (aQueue.Count > 0) Console.WriteLine($"Next customer in line: {aQueue.Peek()}");
+            }
+
+            if (aQueue.Count > 0)
+            {
+                Console.WriteLine("\nStore to forgot to handle these customers:");
+
+                while (aQueue.Count > 0)
+                {
+                    Console.WriteLine(aQueue.Dequeue());
+                }
+            }
+            else
+            {
+                Console.WriteLine("\nNo customers waiting in line");
+            }
+
+            Console.WriteLine("\nPress any key to return to main menu...");
+            Console.ReadKey();
         }
+    
 
         /// <summary>
         /// Examines the datastructure Stack
