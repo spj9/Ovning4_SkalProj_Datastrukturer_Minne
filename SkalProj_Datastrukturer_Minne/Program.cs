@@ -99,10 +99,10 @@ namespace SkalProj_Datastrukturer_Minne
                 var capacityBefore = aList.Capacity;
                 var countBefore = aList.Count;
 
-                char op = input[0];
+                char oi = input[0];
                 string value = input.Substring(1);
 
-                switch (op)
+                switch (oi)
                 {
                     case '+':
                         aList.Add(value);
@@ -167,7 +167,6 @@ namespace SkalProj_Datastrukturer_Minne
             var aQueue = new Queue<string>();
 
             Console.Clear();
-
             Console.WriteLine("\nQueue initalized");
 
             var running = true;
@@ -211,17 +210,11 @@ namespace SkalProj_Datastrukturer_Minne
             }
 
             if (aQueue.Count > 0)
-            {
-                Console.WriteLine("\nStore to forgot to handle these customers:");
-
+            {   Console.WriteLine("\nStore forgot to handle these customers:");
                 while (aQueue.Count > 0)
-                {
-                    Console.WriteLine(aQueue.Dequeue());
-                }
+                {   Console.WriteLine(aQueue.Dequeue());  }
             }
-            else
-            {
-                Console.WriteLine("\nNo customers waiting in line");
+            else  { Console.WriteLine("\nNo customers waiting in line");
             }
 
             Console.WriteLine("\nPress any key to return to main menu...");
