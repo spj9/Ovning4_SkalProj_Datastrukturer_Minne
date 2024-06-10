@@ -1,12 +1,14 @@
 ﻿using System;
+using System.ComponentModel;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SkalProj_Datastrukturer_Minne
 {
     class Program
     {
-        private static bool ChangeCtrl(int value1, int value2, out int change)
+        private static bool ChangeCtrl(int val1, int val2, out int change)
         {
-            change = value1 - value2;
+            change = val1 - val2;
             return change != 0;
         }
         /// <summary>
@@ -198,7 +200,7 @@ namespace SkalProj_Datastrukturer_Minne
                         break;
                     default:
                         Console.WriteLine("Please use only \"+\" or \"-\" as an operator");
-                        Console.WriteLine("If you want to return to the main menu, please enter \"0\"");
+                        Console.WriteLine("To return to the main menu, please enter \"0\"");
                         continue;
                 }
 
@@ -232,6 +234,39 @@ namespace SkalProj_Datastrukturer_Minne
              * Create a switch with cases to push or pop items
              * Make sure to look at the stack after pushing and and poping to see how it behaves
             */
+
+            bool running = true;
+            Stack<string> stack = new Stack<string>();
+            
+            System.Console.WriteLine(
+                "Enter + to add or - to remove from the stack. \nPress any key to return to main menu..."
+            );
+            do
+            {
+                string input = Console.ReadLine()!;
+                char navi = input![0];
+                string value = input.Substring(1);
+                switch (navi)
+                {
+                    case '+':
+                        stack.Push(value);
+                        Console.WriteLine($"{value} has been added to the stack.");
+                        break;
+                    case '-':
+                        stack.Pop();
+                        Console.WriteLine($"{stack.Pop()} has been taken care of.");
+                        break;
+                    default:
+                        running = false;
+                        break;
+                }
+            } while (running);
+
+            /*
+                Stack is not a great datastructure to represent a customer line in a store or first in, first out.
+                The last customer to join the line is the first to be attended too.
+                Customers that join first will have to wait the longest.
+            */
         }
 
         static void CheckParanthesis()
@@ -242,8 +277,72 @@ namespace SkalProj_Datastrukturer_Minne
              * Example of incorrect: (()]), [), {[()}],  List<int> list = new List<int>() { 1, 2, 3, 4 );
              */
 
+            Console.Clear();
+            string? inputStr;
+
+            do
+            {
+                Console.WriteLine("\nPlease enter a string containing parantheses.");
+                inputStr = Console.ReadLine();
+            } while (string.IsNullOrWhiteSpace(inputStr));
+
+            // Store what types of parantheses/brackets to check for.
+            char[] startParantheses = ['(', '[', '{'];
+            char[] endParantheses = [')', ']', '}'];
+            bool isCorrect = true;
+            var stack = new Stack<char>();
+
+            for (int i = 0; i < inputStr.Length; i++)
+            {
+                // Starting paranthesis
+                if (startParantheses.Contains(inputStr[i]))
+                {
+                    stack.Push(inputStr[i]);
+                }
+
+                // Ending paranthesis
+                if (endParantheses.Contains(inputStr[i]))
+                {
+                    if (stack.Count > 0)
+                    {
+                        if (!paranthesesMatch(stack.Pop(), inputStr[i]))
+                        {
+                            isCorrect = false;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        isCorrect = false;
+                        break;
+                    }
+                }
+            }
+            // Print user feedback
+            if (isCorrect) { Console.WriteLine("\nYour input has the correct format!"); }
+            else
+            {
+                Console.WriteLine("\nSorry! Your input DOES NOT have the correct format.");
+            }
+            Console.WriteLine("\nPress any key to return to main menu...");
+            Console.ReadKey();
         }
 
+        // Parantheses match
+        static bool paranthesesMatch(char openChar, char closeChar)
+        {
+            switch (openChar)
+            {
+                case '(':
+                    return closeChar == ')';
+                case '[':
+                    return closeChar == ']';
+                case '{':
+                    return closeChar == '}';
+                default:
+                    return false;
+            }
+        }     
     }
 }
 
