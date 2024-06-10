@@ -2,6 +2,30 @@
 using System.ComponentModel;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
+/*
+ * ANSWER TO QUESTIONS:
+ * 1)   The stack stores value types in such a way that if you wish to access the second item from the top, 
+ *      the top one first needs to move, i.e. last-in, first-out access to items. 
+ *      The heap stores reference types in scattered form where everything is available at once, or
+ *      as needed, kind of like in a warehouse. You can access the item you need without ever moving any
+ *      other items.
+ *      
+ * 2)   A value type holds/contains a value within its own memory space, i.e. a = 10 
+ *      The system stores 10 in the memory space allocated for the variable a.
+ *      A reference type doesn't store its value directly. It stores the address on the heap where the 
+ *      value is being stored. So we can say that a reference type contains a pointer to another memory 
+ *      location that holds the data. 
+ *      
+ * 3)   In the first method (ReturnValue), only value types are used. 
+ *      The line stating "y = x" does nothing else but give y the same value as x (which is 3). 
+ *      The next line "y = 4" just sets the value of y to 4, it has no effect on the value of x (which is still 3).   
+ *      
+ *      In the second method (ReturnValue2) an object with the property MyValue is created. 
+ *      The line stating "y = x" tells y to point to the same object that x already points to (which is 3). 
+ *      The next line sets MyValue to 4 with "y.MyValue = 4". 
+ *      After that x.MyValue is returned and it points to the same value as y (which is 4).
+ */
+
 namespace SkalProj_Datastrukturer_Minne
 {
     class Program
@@ -26,12 +50,12 @@ namespace SkalProj_Datastrukturer_Minne
                     + "\n3. Examine a Stack"
                     + "\n4. CheckParenthesis"
                     + "\n0. Exit the application");
-                char input = ' '; //Creates the character input to be used with the switch-case below.
+                char input = ' '; // Creates the character input to be used with the switch-case below.
                 try
                 {
-                    input = Console.ReadLine()![0]; //Tries to set input to the first char in an input line
+                    input = Console.ReadLine()![0]; // Tries to set input to the first char in an input line
                 }
-                catch (IndexOutOfRangeException) //If the input line is empty, we ask the users for some input.
+                catch (IndexOutOfRangeException) // If the input line is empty, we ask the users for some input.
                 {
                     Console.Clear();
                     Console.WriteLine("Please enter some input!");
